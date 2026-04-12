@@ -1,54 +1,12 @@
-'use client';
-
 import { useCalculatorStore } from '@/src/store/calculatorStores';
 import SliderField from '../SliderField/SliderField';
-import { CampaignParams } from '@/src/types/modelTypes';
-import { Target } from 'lucide-react';
+import { FIELDS } from '@/src/constant/constant';
 import ButtonSave from '../Button/Button';
+import { Target } from 'lucide-react';
 
 interface ParameterPanelProps {
   onSave: () => void;
 }
-
-const FIELDS: {
-  label: string;
-  key: keyof CampaignParams;
-  min: number;
-  max: number;
-  step: number;
-  hasSlider?: boolean;
-}[] = [
-  {
-    label: 'Harga Produk',
-    key: 'harga',
-    min: 0,
-    max: 10_000_000,
-    step: 1000,
-    hasSlider: false,
-  },
-  {
-    label: 'Pengeluaran Iklan Bulanan',
-    key: 'budget',
-    min: 0,
-    max: 50_000_000,
-    step: 100_000,
-  },
-  {
-    label: 'Cost per Results (CPR)',
-    key: 'cpr',
-    min: 0,
-    max: 5_000_000,
-    step: 1_000,
-  },
-  {
-    label: 'Nilai Pesanan Rata-rata',
-    key: 'aov',
-    min: 0,
-    max: 10_000_000,
-    step: 1_000,
-    hasSlider: false,
-  },
-];
 
 export default function ParameterPanel({ onSave }: ParameterPanelProps) {
   const params = useCalculatorStore((s) => s.params);

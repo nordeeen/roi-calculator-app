@@ -1,11 +1,7 @@
 'use client';
 
 import { useCalculatorStore } from '@/src/store/calculatorStores';
-import {
-  formatRupiah,
-  formatRoiLabel,
-  calculate,
-} from '@/src/utils/calculation';
+import { formatRupiah, formatRoiLabel } from '@/src/utils/calculation';
 import {
   Calculator,
   ChartColumn,
@@ -14,33 +10,7 @@ import {
   TrendingUp,
 } from 'lucide-react';
 import MetricCard from '../MetricCard/MetricCard';
-
-const ROI_CONFIG = {
-  excellent: {
-    gradient: 'from-emerald-500 to-teal-600',
-    status: 'Kampanye Sangat Menguntungkan',
-    badge: 'bg-emerald-100 text-emerald-700',
-  },
-  good: {
-    gradient: 'from-indigo-500 to-purple-600',
-    status: 'Kampanye Menguntungkan',
-    badge: 'bg-indigo-100 text-indigo-700',
-  },
-  warning: {
-    gradient: 'from-amber-500 to-orange-600',
-    status: 'Perlu Optimasi',
-    badge: 'bg-amber-100 text-amber-700',
-  },
-  danger: {
-    gradient: 'from-red-500 to-rose-600',
-    status: 'Perlu Optimasi',
-    badge: 'bg-red-100 text-red-700',
-  },
-};
-
-// Insight colors
-const bgColors = ['#f7f6ff', '#f1fbfc', '#f7f6ff'];
-const bulletColors = ['#818cf8', '#05b0c0', '#818cf8'];
+import { bgColors, bulletColors, ROI_CONFIG } from '@/src/constant/constant';
 
 export default function ResultPanel() {
   const results = useCalculatorStore((s) => s.results);

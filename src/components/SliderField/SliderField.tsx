@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { formatRupiah } from '@/src/utils/calculation';
+import { SLIDER_MAX } from '@/src/constant/constant';
 
 interface SliderFieldProps {
   label: string;
@@ -13,11 +14,6 @@ interface SliderFieldProps {
   hasSlider?: boolean;
   onChange: (value: number) => void;
 }
-
-const SLIDER_MAX: Record<string, number> = {
-  budget: 100_000_000,
-  cpr: 50_000_000,
-};
 
 export default function SliderField({
   label,

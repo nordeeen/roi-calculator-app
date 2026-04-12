@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { formatRupiah } from '@/src/utils/calculation';
 
 interface SliderFieldProps {
@@ -14,6 +14,11 @@ interface SliderFieldProps {
   onChange: (value: number) => void;
 }
 
+const SLIDER_MAX: Record<string, number> = {
+  budget: 100_000_000,
+  cpr: 50_000_000,
+};
+
 export default function SliderField({
   label,
   fieldKey,
@@ -24,16 +29,47 @@ export default function SliderField({
   hasSlider = true,
   onChange,
 }: SliderFieldProps) {
-  const handleChange = useCallback(
+  const [inputVal, setInputVal] = useState(String(value));
+  const isFocusedRef = useRef(false);
+
+  const sliderMax = SLIDER_MAX[fieldKey] ?? 50_000_000;
+  const sliderValue = Math.min(value, sliderMax);
+  const pct = hasSlider ? ((sliderValue - min) / (sliderMax - min)) * 100 : 0;
+
+  // Sync the input display from the store, but skip it if the user is focused (typing)
+  useEffect(() => {
+    if (!isFocusedRef.current) {
+      setInputVal(String(value));
+    }
+  }, [value]);
+
+  const handleSliderChange = useCallback(
     (raw: string) => {
-      const parsed = parseFloat(raw);
-      if (!isNaN(parsed)) onChange(Math.max(min, Math.min(max, parsed)));
+      onChange(Number(raw));
     },
-    [min, max, onChange],
+    [onChange],
   );
 
-  // Compute slider fill % for styling
-  const pct = hasSlider ? ((value - min) / (max - min)) * 100 : 0;
+  const handleInputChange = useCallback(
+    (raw: string) => {
+      setInputVal(raw);
+      const parsed = parseFloat(raw);
+      if (raw === '' && isNaN(parsed)) {
+        onChange(0);
+      } else {
+        onChange(Math.max(min, parsed));
+      }
+    },
+    [min, onChange],
+  );
+
+  const handleBlur = useCallback(() => {
+    isFocusedRef.current = false;
+    if (inputVal === '' || isNaN(parseFloat(inputVal))) {
+      onChange(0);
+      setInputVal('0');
+    }
+  }, [inputVal, onChange]);
 
   return (
     <div className="mb-5 group">
@@ -44,7 +80,7 @@ export default function SliderField({
           {label}
         </label>
         <span className="text-sm font-bold text-indigo-600 tabular-nums">
-          {formatRupiah(value)}
+          {formatRupiah(parseFloat(inputVal) || 0)}
         </span>
       </div>
 
@@ -54,14 +90,14 @@ export default function SliderField({
             id={`${fieldKey}-slider`}
             type="range"
             min={min}
-            max={max}
+            max={sliderMax}
             step={step}
-            value={value}
-            onChange={(e) => handleChange(e.target.value)}
+            value={sliderValue}
+            aria-label={`${label} slider`}
+            onChange={(e) => handleSliderChange(e.target.value)}
             style={{
               background: `linear-gradient(to right, #4f46e5 ${pct}%, #e0e0f5 ${pct}%)`,
             }}
-            aria-label={`${label} slider`}
           />
         </div>
       )}
@@ -70,13 +106,24 @@ export default function SliderField({
         id={fieldKey}
         type="number"
         min={min}
-        max={max}
         step={step}
-        value={value}
-        onChange={(e) => handleChange(e.target.value)}
+        value={inputVal}
+        onFocus={() => (isFocusedRef.current = true)}
+        onChange={(e) => handleInputChange(e.target.value)}
+        onBlur={handleBlur}
+        aria-label={`${label} input`}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') {
+            e.currentTarget.blur();
+          }
+        }}
+        onWheel={(e) => {
+          // to prevent scrolling when the input field is in focus
+          if (document.activeElement === e.currentTarget)
+            e.currentTarget.blur();
+        }}
         className="w-full bg-gray-50 border border-gray-200 hover:border-indigo-300 focus:border-indigo-500 focus:ring-2 
         focus:ring-indigo-100 rounded-xl px-3.5 py-2.5 text-sm font-medium text-gray-800 outline-none transition-all duration-200"
-        aria-label={`${label} input`}
       />
     </div>
   );

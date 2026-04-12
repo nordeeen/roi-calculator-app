@@ -20,24 +20,6 @@ const FEATURES = [
     title: 'Optimalkan Pengeluaran Iklan',
     desc: 'Temukan keseimbangan sempurna antara pengeluaran iklan dan hasil. Identifikasi CPR optimal untuk bisnis Anda.',
   },
-  // {
-  //   icon: '💾',
-  //   color: 'bg-emerald-100',
-  //   title: 'Simpan & Bandingkan',
-  //   desc: 'Simpan hasil perhitungan ke riwayat dan bandingkan performa antar kampanye. Data tetap tersimpan meski browser ditutup.',
-  // },
-  // {
-  //   icon: '📱',
-  //   color: 'bg-amber-100',
-  //   title: 'Mobile Responsive',
-  //   desc: 'Akses kalkulator dari perangkat apa pun. Tampilan yang rapi dan mudah digunakan baik di desktop maupun smartphone.',
-  // },
-  // {
-  //   icon: '🔒',
-  //   color: 'bg-rose-100',
-  //   title: 'Data Aman & Privat',
-  //   desc: 'Semua data tersimpan langsung di browser Anda menggunakan localStorage. Tidak ada data yang dikirim ke server.',
-  // },
 ];
 
 function FeatureIcon({ icon, color }: { icon: string; color: string }) {
@@ -46,13 +28,7 @@ function FeatureIcon({ icon, color }: { icon: string; color: string }) {
     <div
       className={`w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-4 transition-transform duration-200`}>
       {isSvgPath ? (
-        <Image
-          src={icon}
-          alt="feature icon"
-          width={32}
-          height={32}
-          style={{ width: undefined, height: undefined }}
-        />
+        <Image src={icon} alt="feature icon" width={32} height={32} />
       ) : (
         <span>{icon}</span>
       )}
@@ -73,7 +49,6 @@ export default function WhySection() {
         </p>
       </div>
 
-      {/* Feature grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
         {FEATURES.map((f, i) => (
           <div

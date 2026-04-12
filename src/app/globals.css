@@ -81,7 +81,13 @@ input[type='range']::-moz-range-thumb {
 /* Number input spin buttons */
 input[type='number']::-webkit-inner-spin-button,
 input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
   opacity: 0.5;
+}
+
+input[type='number'] {
+  -moz-appearance: textfield;
 }
 
 /* Scrollbar */

@@ -20,9 +20,15 @@ export default function WhySection() {
             key={f.title}
             className="cursor-pointer bg-white rounded-2xl border border-gray-100 p-6 hover:shadow-md transition-all duration-300 hover:-translate-y-0.5 group"
             style={{ animationDelay: `${i * 80}ms` }}>
-            <FeatureIcon icon={f.icon} />
-            <h3 className="text-sm font-bold text-gray-800 mb-2">{f.title}</h3>
-            <p className="text-xs text-gray-500 leading-relaxed">{f.desc}</p>
+            <div className="flex items-center gap-3 sm:block">
+              <FeatureIcon icon={f.icon} />
+              <h3 className="text-sm font-bold text-gray-800 sm:mb-2 mb-0">
+                {f.title}
+              </h3>
+            </div>
+            <p className="text-xs text-gray-500 leading-relaxed mt-2 sm:mt-0">
+              {f.desc}
+            </p>
           </div>
         ))}
       </div>

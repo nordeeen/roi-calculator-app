@@ -1,7 +1,7 @@
 import { useCalculatorStore } from '@/src/store/calculatorStores';
 import SliderField from '../SliderField/SliderField';
 import { FIELDS } from '@/src/constant/constant';
-import ButtonSave from '../Button/Button';
+import ButtonSave from '../Button/ButtonSave';
 import { Target } from 'lucide-react';
 
 interface ParameterPanelProps {

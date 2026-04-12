@@ -41,7 +41,9 @@ export default function SliderField({
 
   const handleSliderChange = useCallback(
     (raw: string) => {
-      onChange(Number(raw));
+      const parsed = Number(raw);
+      setInputVal(String(parsed));
+      onChange(parsed);
     },
     [onChange],
   );

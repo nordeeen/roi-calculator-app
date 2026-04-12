@@ -76,7 +76,10 @@ export function generateInsights(
 }
 
 export function formatRupiah(n: number): string {
-  return 'Rp ' + Math.round(n).toLocaleString('id-ID');
+  const abs = Math.abs(n).toLocaleString('id-ID');
+  const sign = n < 0 ? '-' : '';
+
+  return `${sign}Rp ${abs}`;
 }
 
 export function formatRoiLabel(roi: number): string {

@@ -1,15 +1,3 @@
-/**
- * State Management menggunakan Zustand.
- *
- * Kenapa Zustand (bukan Context API / Redux)?
- * - Lebih ringan dari Redux (~1KB), tidak perlu Provider wrapper
- * - Lebih powerful dari Context API: tidak trigger re-render seluruh tree
- * - Selector-based subscription: komponen hanya re-render saat slice state yang
- *   mereka butuhkan berubah — sangat efisien untuk kalkulator real-time
- * - TypeScript support yang sangat baik out-of-the-box
- * - Mudah di-persist ke localStorage dengan middleware `persist`
- */
-
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import {
@@ -73,7 +61,7 @@ export const useCalculatorStore = create<CalculatorState>()(
           results: { ...results },
         };
         set((state) => ({
-          history: [entry, ...state.history].slice(0, 30),
+          history: [entry, ...state.history].slice(0, 10),
         }));
       },
 
@@ -89,7 +77,6 @@ export const useCalculatorStore = create<CalculatorState>()(
       storage: createJSONStorage(() =>
         typeof window !== 'undefined' ? localStorage : ({} as Storage),
       ),
-      // Hanya persist history ke localStorage, bukan params (optional)
       partialize: (state) => ({ history: state.history }),
     },
   ),

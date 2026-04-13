@@ -1,36 +1,96 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ROI Calculator App
 
-## Getting Started
+Aplikasi web sederhana yang digunakan untuk menghitung dan menganalisis performa bisnis atau campaign digital marketing berdasarkan beberapa metrik penting seperti **ROI (Return on Investment), Profit, Revenue, Results, dan CPR (Cost per Result)**.
 
-First, run the development server:
+Aplikasi ini membantu pengguna memahami efektivitas pengeluaran (budget) terhadap hasil yang diperoleh, sehingga dapat digunakan sebagai alat bantu dalam pengambilan keputusan yang lebih berbasis data.
 
-```bash
+---
+
+## Fitur
+
+- Menghitung Results, Revenue, Profit, dan ROI
+- Menggunakan pendekatan rumus bisnis (benchmark digital marketing)
+- Validasi input sederhana
+- Tampilan clean dan mudah digunakan
+- Menangani edge case dasar
+
+---
+
+## Rumus Perhitungan
+
+Results = Budget ÷ CPR  
+Revenue = Results × AOV  
+Profit = Revenue − Budget  
+ROI = (Profit ÷ Budget) × 100%  
+CPR Target = Harga Produk × 30%  
+Margin / Result = AOV − CPR
+
+Keterangan:
+
+- **Budget**: total biaya yang dikeluarkan
+- **CPR (Cost per Result)**: biaya per hasil
+- **AOV (Average Order Value)**: rata-rata nilai transaksi
+- **Harga Produk**: harga jual produk
+
+---
+
+## Tech Stack
+
+- Next.js (App Router)
+- TypeScript
+- Tailwind CSS
+- Zustand
+- Jest
+
+---
+
+## Menjalankan Project
+
+Install dependencies:
+
+npm install
+
+Jalankan development server:
+
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Buka di browser:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+http://localhost:3000
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## Build Production
 
-To learn more about Next.js, take a look at the following resources:
+npm run build  
+npm start
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Struktur Folder
 
-## Deploy on Vercel
+src/
+├── app/
+├── components/
+├── constant/
+├── store/
+├── types/
+├── utils/
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Edge Case yang Ditangani
+
+- Input kosong
+- Input bukan angka
+- Budget = 0 (menghindari pembagian nol)
+- Nilai negatif
+
+---
+
+## Catatan
+
+- CPR Target menggunakan benchmark umum yaitu **30% dari harga produk**
+- Aplikasi ini ditujukan untuk simulasi sederhana dan bukan alat analisis finansial yang kompleks
+
+---

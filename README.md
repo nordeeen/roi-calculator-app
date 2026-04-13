@@ -67,16 +67,6 @@ npm start
 
 ---
 
-## Struktur Folder
-
-src/
-├── app/
-├── components/
-├── constant/
-├── store/
-├── types/
-├── utils/
-
 ---
 
 ## Edge Case yang Ditangani
